@@ -1,4 +1,6 @@
 /**
+ * 
  *
- * This module creates following resources:
+ * This module creates EKS Control Plane, Managed NodeGroups and Fargate Profiles
+ * 
  */
