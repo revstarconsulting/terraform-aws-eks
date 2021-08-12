@@ -1,6 +1,7 @@
 module "cluster_sg" {
-  source                     = "app.terraform.io/CloudProdigy/security-group/aws"
-  version                    = "1.0.0"
+  source  = "app.terraform.io/CloudProdigy/security-group/aws"
+  version = "1.0.0"
+
   count                      = length(var.control_plane_security_groups) > 0 ? 0 : 1
   vpc_id                     = var.vpc_id
   security_group_name        = "${var.cluster_name}_eks_cluster_sg"
@@ -28,8 +29,8 @@ module "cluster_sg" {
     }
   ]
 
-  tag_application = var.tag_application
-  tag_team        = var.tag_team
+  tag_application = "security-group"
+  tag_team        = "IT4I"
 
   sg_tags = {
     "kubernetes.io/cluster/${var.cluster_name}" = "owned"
@@ -37,8 +38,9 @@ module "cluster_sg" {
 }
 
 module "node_sg" {
-  source                     = "app.terraform.io/CloudProdigy/security-group/aws"
-  version                    = "1.0.0"
+  source  = "app.terraform.io/CloudProdigy/security-group/aws"
+  version = "1.0.0"
+
   count                      = length(var.node_security_groups) > 0 ? 0 : 1
   vpc_id                     = var.vpc_id
   security_group_name        = "${var.cluster_name}_eks_worker_sg"
@@ -71,8 +73,8 @@ module "node_sg" {
     }
   ]
 
-  tag_application = var.tag_application
-  tag_team        = var.tag_team
+  tag_application = "security-group"
+  tag_team        = "IT4I"
 
   sg_tags = {
     "kubernetes.io/cluster/${var.cluster_name}" = "owned"

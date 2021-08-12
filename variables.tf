@@ -170,47 +170,16 @@ variable "addons" {
   default     = []
 }
 
-variable "manage_helm" {
-  description = "Whether or not to manage Helm using Terraform"
-  type        = bool
-  default     = false
+variable "helm_charts" {
+  description = "List of helm charts to be deployed"
+  type        = any
+  default     = {}
 }
 
-variable "datadog_version" {
-  description = "Datadog helm chart version"
-  type        = string
-  default     = "2.19.4"
-}
-
-variable "datadog_namespace" {
-  description = "Kubernetes namespace for Datadog deployment"
-  type        = string
-  default     = "kube-system"
-}
-
-variable "datadog_helm_file" {
-  description = "A file containing datadog config values for Helm. Only valid if `manage_helm` is set to true."
-  type        = string
-  default     = "helm/datadog_values.yaml"
-}
-
-variable "splunk_version" {
-  description = "Splunk helm chart version"
-  type        = string
-  default     = "1.4.8"
-}
-
-variable "splunk_namespace" {
-  description = "Kubernetes namespace for Splunk deployment"
-  type        = string
-  default     = "splunk-connect-k8s"
-
-}
-
-variable "splunk_helm_file" {
-  description = "A file containing Splunk config values for Helm. Only valid if `manage_helm` is set to true."
-  type        = string
-  default     = "helm/splunk_values.yaml"
+variable "additional_settings" {
+  description = "Map of additional settings for helm deployments"
+  type        = list(map(string))
+  default     = []
 }
 
 variable "enable_encryption" {

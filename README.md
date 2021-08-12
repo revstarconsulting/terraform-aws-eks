@@ -14,6 +14,7 @@ This module creates EKS Control Plane, Managed NodeGroups and Fargate Profiles
 | Name | Version |
 |------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | >= 3.3.0 |
+| <a name="provider_helm"></a> [helm](#provider\_helm) | n/a |
 | <a name="provider_template"></a> [template](#provider\_template) | n/a |
 | <a name="provider_tls"></a> [tls](#provider\_tls) | n/a |
 
@@ -42,6 +43,7 @@ This module creates EKS Control Plane, Managed NodeGroups and Fargate Profiles
 | [aws_kms_alias.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kms_alias) | resource |
 | [aws_kms_key.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kms_key) | resource |
 | [aws_launch_template.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/launch_template) | resource |
+| [helm_release.this](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
 | [aws_eks_cluster.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster) | data source |
 | [aws_iam_policy_document.control_plane_assume_role](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.node_group_assume_role](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
@@ -52,6 +54,7 @@ This module creates EKS Control Plane, Managed NodeGroups and Fargate Profiles
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_additional_settings"></a> [additional\_settings](#input\_additional\_settings) | Map of additional settings for helm deployments | `list(map(string))` | `[]` | no |
 | <a name="input_addons"></a> [addons](#input\_addons) | List of addons to be managed. Valid values are `coredns`, `kube-proxy` and `vpc-cni`. Only valid if `enable_addons` is set to true | `any` | `[]` | no |
 | <a name="input_cluster_encryption_config"></a> [cluster\_encryption\_config](#input\_cluster\_encryption\_config) | Secrets encryption configuration | `any` | `[]` | no |
 | <a name="input_cluster_log_types"></a> [cluster\_log\_types](#input\_cluster\_log\_types) | List of cluster log types to be enabled. | `list(string)` | <pre>[<br>  "api",<br>  "audit",<br>  "authenticator",<br>  "controllerManager",<br>  "scheduler"<br>]</pre> | no |
@@ -64,19 +67,16 @@ This module creates EKS Control Plane, Managed NodeGroups and Fargate Profiles
 | <a name="input_control_plane_tags"></a> [control\_plane\_tags](#input\_control\_plane\_tags) | Tags applied on Control Plane | `map(string)` | `{}` | no |
 | <a name="input_custom_control_plane_role_policies"></a> [custom\_control\_plane\_role\_policies](#input\_custom\_control\_plane\_role\_policies) | List of ARNs of custom managed policies to be applied to IAM Role | `list(string)` | `[]` | no |
 | <a name="input_custom_node_role_policies"></a> [custom\_node\_role\_policies](#input\_custom\_node\_role\_policies) | List of ARNs of custom managed policies to be applied to IAM Role | `list(string)` | `[]` | no |
-| <a name="input_datadog_helm_file"></a> [datadog\_helm\_file](#input\_datadog\_helm\_file) | A file containing datadog config values for Helm. Only valid if `manage_helm` is set to true. | `string` | `"helm/datadog_values.yaml"` | no |
-| <a name="input_datadog_namespace"></a> [datadog\_namespace](#input\_datadog\_namespace) | Kubernetes namespace for Datadog deployment | `string` | `"kube-system"` | no |
-| <a name="input_datadog_version"></a> [datadog\_version](#input\_datadog\_version) | Datadog helm chart version | `string` | `"2.19.4"` | no |
 | <a name="input_disk_size"></a> [disk\_size](#input\_disk\_size) | Disk size (in GBs) to attach with EKS nodes | `number` | `100` | no |
 | <a name="input_disk_type"></a> [disk\_type](#input\_disk\_type) | EBS volume type | `string` | `"gp3"` | no |
 | <a name="input_enable_addons"></a> [enable\_addons](#input\_enable\_addons) | Whether or not to enable addons | `bool` | `false` | no |
 | <a name="input_enable_encryption"></a> [enable\_encryption](#input\_enable\_encryption) | Set to true if secrets need to be encrypted | `bool` | `true` | no |
 | <a name="input_enable_irsa"></a> [enable\_irsa](#input\_enable\_irsa) | Whether or not to enable IAM role for Service Accounts | `bool` | `false` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | Provide appropriate environment name | `string` | n/a | yes |
+| <a name="input_helm_charts"></a> [helm\_charts](#input\_helm\_charts) | List of helm charts to be deployed | `any` | `{}` | no |
 | <a name="input_instance_type"></a> [instance\_type](#input\_instance\_type) | Instance type to be configured in launch template | `string` | `"t3.large"` | no |
 | <a name="input_instance_types"></a> [instance\_types](#input\_instance\_types) | List of instance types outside launch template. | `list(string)` | `[]` | no |
 | <a name="input_launch_template_name"></a> [launch\_template\_name](#input\_launch\_template\_name) | Launch template name | `string` | `"eks-launch-template"` | no |
-| <a name="input_manage_helm"></a> [manage\_helm](#input\_manage\_helm) | Whether or not to manage Helm using Terraform | `bool` | `false` | no |
 | <a name="input_node_group_assume_role_policy"></a> [node\_group\_assume\_role\_policy](#input\_node\_group\_assume\_role\_policy) | Custom assume role policy to be attached with node group IAM role | `string` | `""` | no |
 | <a name="input_node_group_name"></a> [node\_group\_name](#input\_node\_group\_name) | The name of the cluster node group. Defaults to <cluster\_name>-<random value> | `string` | `null` | no |
 | <a name="input_node_group_role_name"></a> [node\_group\_role\_name](#input\_node\_group\_role\_name) | IAM role name for the node groups | `string` | n/a | yes |
@@ -85,9 +85,6 @@ This module creates EKS Control Plane, Managed NodeGroups and Fargate Profiles
 | <a name="input_private_endpoint_enabled"></a> [private\_endpoint\_enabled](#input\_private\_endpoint\_enabled) | Whether or not to enable private endpoint | `bool` | `false` | no |
 | <a name="input_public_access_cidr_blocks"></a> [public\_access\_cidr\_blocks](#input\_public\_access\_cidr\_blocks) | List of CIDR blocks to be whitelisted for public access | `list(string)` | <pre>[<br>  "0.0.0.0/0"<br>]</pre> | no |
 | <a name="input_public_endpoint_enabled"></a> [public\_endpoint\_enabled](#input\_public\_endpoint\_enabled) | Whether or not to enable public endpoint | `bool` | `true` | no |
-| <a name="input_splunk_helm_file"></a> [splunk\_helm\_file](#input\_splunk\_helm\_file) | A file containing Splunk config values for Helm. Only valid if `manage_helm` is set to true. | `string` | `"helm/splunk_values.yaml"` | no |
-| <a name="input_splunk_namespace"></a> [splunk\_namespace](#input\_splunk\_namespace) | Kubernetes namespace for Splunk deployment | `string` | `"splunk-connect-k8s"` | no |
-| <a name="input_splunk_version"></a> [splunk\_version](#input\_splunk\_version) | Splunk helm chart version | `string` | `"1.4.8"` | no |
 | <a name="input_ssh_key_name"></a> [ssh\_key\_name](#input\_ssh\_key\_name) | SSH Key name to be associated with the instances | `string` | `""` | no |
 | <a name="input_subnet_ids"></a> [subnet\_ids](#input\_subnet\_ids) | A list of subnet IDs to launch resources in | `list(string)` | n/a | yes |
 | <a name="input_tag_application"></a> [tag\_application](#input\_tag\_application) | Application tag | `string` | n/a | yes |

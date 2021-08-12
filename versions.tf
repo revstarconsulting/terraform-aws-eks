@@ -9,7 +9,7 @@ terraform {
   }
 }
 
-/*
+
 provider "helm" {
   kubernetes {
     host                   = aws_eks_cluster.this.endpoint
@@ -21,4 +21,4 @@ provider "helm" {
     }
   }
 }
-*/
+

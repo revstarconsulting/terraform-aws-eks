@@ -1,29 +1,21 @@
-/*
-resource "helm_release" "datadog" {
-  count = var.manage_helm ? 1 : 0
-  name  = "datadog-${var.environment}"
 
-  repository = "https://helm.datadoghq.com"
-  chart      = "datadog"
-  version    = var.datadog_version
+resource "helm_release" "this" {
+  for_each = var.helm_charts
 
-  namespace = var.datadog_namespace
-  values = [
-    "${file(var.datadog_helm_file)}"
-  ]
+  name       = each.value["name"]
+  repository = each.value["repository"]
+  chart      = each.value["chart_name"]
+  version    = lookup(each.value, "chart_version", null)
+
+  namespace        = lookup(each.value, "namespace", "kube-system")
+  values           = each.value["filename"] != "" ? [file(each.value["filename"])] : []
+  create_namespace = true
+  dynamic "set" {
+    for_each = var.additional_settings
+    content {
+      name  = set.value["name"]
+      value = set.value["value"]
+    }
+  }
 }
 
-resource "helm_release" "splunk" {
-  count = var.manage_helm ? 1 : 0
-  name  = "datadog-${var.environment}"
-
-  repository = "https://splunk.github.io/splunk-connect-for-kubernetes/"
-  chart      = "splunk"
-  version    = var.splunk_version
-
-  namespace = var.splunk_namespace
-  values = [
-    "${file(var.splunk_helm_file)}"
-  ]
-}
-*/
