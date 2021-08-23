@@ -15,7 +15,6 @@ This module creates EKS Control Plane, Managed NodeGroups and Fargate Profiles
 |------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | 3.55.0 |
 | <a name="provider_helm"></a> [helm](#provider\_helm) | 2.2.0 |
-| <a name="provider_template"></a> [template](#provider\_template) | 2.2.0 |
 | <a name="provider_tls"></a> [tls](#provider\_tls) | 3.1.0 |
 
 ## Modules
@@ -47,7 +46,6 @@ This module creates EKS Control Plane, Managed NodeGroups and Fargate Profiles
 | [aws_eks_cluster.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster) | data source |
 | [aws_iam_policy_document.control_plane_assume_role](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.node_group_assume_role](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
-| [template_file.launch_template_userdata](https://registry.terraform.io/providers/hashicorp/template/latest/docs/data-sources/file) | data source |
 | [tls_certificate.this](https://registry.terraform.io/providers/hashicorp/tls/latest/docs/data-sources/certificate) | data source |
 
 ## Inputs
