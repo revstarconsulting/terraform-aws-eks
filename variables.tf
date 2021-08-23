@@ -156,6 +156,12 @@ variable "subnet_ids" {
   type        = list(string)
 }
 
+variable "node_subnet_ids" {
+  description = "A list of subnet IDs to launch worker nodes in. If blank, will use the subnet_ids variable"
+  type        = list(string)
+  default     = []
+}
+
 #AddOns
 
 variable "enable_addons" {

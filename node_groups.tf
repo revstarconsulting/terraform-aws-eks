@@ -3,7 +3,7 @@ resource "aws_eks_node_group" "this" {
 
   cluster_name  = aws_eks_cluster.this.name
   node_role_arn = aws_iam_role.node_group.arn
-  subnet_ids    = var.subnet_ids
+  subnet_ids    = length(var.node_subnet_ids) > 0 ? var.node_subnet_ids : var.subnet_ids
 
   node_group_name = each.value["node_group_name"]
   disk_size       = lookup(each.value, "disk_size", null)
