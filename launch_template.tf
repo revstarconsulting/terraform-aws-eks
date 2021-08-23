@@ -1,12 +1,8 @@
-data "template_file" "launch_template_userdata" {
-  template = file("${path.module}/templates/userdata.sh.tpl")
-}
-
 resource "aws_launch_template" "this" {
   name                   = var.launch_template_name
   description            = "Launch Template for EKS Node Groups"
   update_default_version = true
-  user_data              = base64encode(data.template_file.launch_template_userdata.rendered)
+  #user_data              = base64encode(data.template_file.launch_template_userdata.rendered)
 
   block_device_mappings {
     device_name = "/dev/xvda"
