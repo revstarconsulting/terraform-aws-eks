@@ -80,6 +80,3 @@ module "node_sg" {
     "kubernetes.io/cluster/${var.cluster_name}" = "owned"
   }
 }
-
-
-

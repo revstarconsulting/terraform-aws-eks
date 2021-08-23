@@ -13,10 +13,10 @@ This module creates EKS Control Plane, Managed NodeGroups and Fargate Profiles
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 3.3.0 |
-| <a name="provider_helm"></a> [helm](#provider\_helm) | n/a |
-| <a name="provider_template"></a> [template](#provider\_template) | n/a |
-| <a name="provider_tls"></a> [tls](#provider\_tls) | n/a |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 3.55.0 |
+| <a name="provider_helm"></a> [helm](#provider\_helm) | 2.2.0 |
+| <a name="provider_template"></a> [template](#provider\_template) | 2.2.0 |
+| <a name="provider_tls"></a> [tls](#provider\_tls) | 3.1.0 |
 
 ## Modules
 
@@ -82,6 +82,7 @@ This module creates EKS Control Plane, Managed NodeGroups and Fargate Profiles
 | <a name="input_node_group_role_name"></a> [node\_group\_role\_name](#input\_node\_group\_role\_name) | IAM role name for the node groups | `string` | n/a | yes |
 | <a name="input_node_groups"></a> [node\_groups](#input\_node\_groups) | Map of node groups to be created | `any` | `{}` | no |
 | <a name="input_node_security_groups"></a> [node\_security\_groups](#input\_node\_security\_groups) | List of Security Group IDs to configure in Launch Template | `list(string)` | `[]` | no |
+| <a name="input_node_subnet_ids"></a> [node\_subnet\_ids](#input\_node\_subnet\_ids) | A list of subnet IDs to launch worker nodes in. If blank, will use the subnet\_ids variable | `list(string)` | `[]` | no |
 | <a name="input_private_endpoint_enabled"></a> [private\_endpoint\_enabled](#input\_private\_endpoint\_enabled) | Whether or not to enable private endpoint | `bool` | `false` | no |
 | <a name="input_public_access_cidr_blocks"></a> [public\_access\_cidr\_blocks](#input\_public\_access\_cidr\_blocks) | List of CIDR blocks to be whitelisted for public access | `list(string)` | <pre>[<br>  "0.0.0.0/0"<br>]</pre> | no |
 | <a name="input_public_endpoint_enabled"></a> [public\_endpoint\_enabled](#input\_public\_endpoint\_enabled) | Whether or not to enable public endpoint | `bool` | `true` | no |
