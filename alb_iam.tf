@@ -96,10 +96,23 @@ data "aws_iam_policy_document" "alb_ingress" {
 
   statement {
     actions = [
-      "waf-regional:GetWebACLForResource",
+      "cognito-idp:DescribeUserPoolClient",
+      "acm:ListCertificates",
+      "acm:DescribeCertificate",
+      "iam:ListServerCertificates",
+      "iam:GetServerCertificate",
       "waf-regional:GetWebACL",
+      "waf-regional:GetWebACLForResource",
       "waf-regional:AssociateWebACL",
-      "waf-regional:DisassociateWebACL"
+      "waf-regional:DisassociateWebACL",
+      "wafv2:GetWebACL",
+      "wafv2:GetWebACLForResource",
+      "wafv2:AssociateWebACL",
+      "wafv2:DisassociateWebACL",
+      "shield:GetSubscriptionState",
+      "shield:DescribeProtection",
+      "shield:CreateProtection",
+      "shield:DeleteProtection"
     ]
     resources = [
       "*",
