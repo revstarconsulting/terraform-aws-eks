@@ -162,6 +162,14 @@ variable "node_subnet_ids" {
   default     = []
 }
 
+#Custom Addons
+
+variable "alb_ingress_enabled" {
+  description = "Whether or not to install ALB Load balancer controller"
+  type        = bool
+  default     = true
+}
+
 #AddOns
 
 variable "enable_addons" {

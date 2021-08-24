@@ -13,8 +13,8 @@ resource "helm_release" "this" {
   dynamic "set" {
     for_each = var.additional_settings
     content {
-      name  = set.value["name"]
-      value = set.value["value"]
+      name  = set.key
+      value = set.value
     }
   }
 
@@ -24,3 +24,42 @@ resource "helm_release" "this" {
   ]
 }
 
+#ALB
+/*
+resource "helm_release" "alb_ingress" {
+  count      = var.alb_ingress_enabled ? 1 : 0
+  name       = "alb-controller"
+  repository = "https://aws.github.io/eks-charts"
+  chart      = "aws-load-balancer-controller"
+  namespace  = "kube-system"
+
+  set {
+    name  = "clusterName"
+    value = var.cluster_name
+  }
+
+  set {
+    name  = "rbac.create"
+    value = "true"
+  }
+
+  set {
+    name  = "rbac.serviceAccount.create"
+    value = "true"
+  }
+
+  set {
+    name  = "rbac.serviceAccountAnnotations.eks\\.amazonaws\\.com/role-arn"
+    value = aws_iam_role.alb_ingress[0].arn
+  }
+
+  dynamic "set" {
+    for_each = var.additional_settings
+
+    content {
+      name  = set.key
+      value = set.value
+    }
+  }
+}
+*/
