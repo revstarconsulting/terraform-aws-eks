@@ -18,6 +18,10 @@ output "openid_connect_provider_url" {
   value       = aws_iam_openid_connect_provider.this.*.url
 }
 
+output "oidc_issuer" {
+  value       = aws_eks_cluster.this.identity[0].oidc[0].issuer
+  description = "OIDC Issuer"
+}
 output "alb_ingress_role_arn" {
   value       = aws_iam_role.alb_ingress[0].arn
   description = "ALB Ingress controller IAM role ARN"
