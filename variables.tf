@@ -170,6 +170,17 @@ variable "alb_ingress_enabled" {
   default     = true
 }
 
+variable "external_dns_enabled" {
+  description = "Whether or not to install external dns"
+  type        = bool
+  default     = true
+}
+
+variable "ca_enabled" {
+  description = "Whether or not to install Cluster Autoscaler"
+  type        = bool
+  default     = true
+}
 #AddOns
 
 variable "enable_addons" {
