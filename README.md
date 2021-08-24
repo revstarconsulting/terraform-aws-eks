@@ -118,5 +118,6 @@ This module creates EKS Control Plane, Managed NodeGroups and Fargate Profiles
 | <a name="output_endpoint"></a> [endpoint](#output\_endpoint) | EKS Cluster endpoint |
 | <a name="output_external_dns_role_arn"></a> [external\_dns\_role\_arn](#output\_external\_dns\_role\_arn) | External DNS IAM Role ARN |
 | <a name="output_kubeconfig_certificate_authority_data"></a> [kubeconfig\_certificate\_authority\_data](#output\_kubeconfig\_certificate\_authority\_data) | EKS CA data |
+| <a name="output_oidc_issuer"></a> [oidc\_issuer](#output\_oidc\_issuer) | OIDC Issuer |
 | <a name="output_openid_connect_provider_arn"></a> [openid\_connect\_provider\_arn](#output\_openid\_connect\_provider\_arn) | OpenID connect provider ARN for IRSA |
 | <a name="output_openid_connect_provider_url"></a> [openid\_connect\_provider\_url](#output\_openid\_connect\_provider\_url) | OpenID connect provider URL for IRSA |
