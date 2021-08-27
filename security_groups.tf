@@ -47,6 +47,15 @@ module "node_sg" {
   security_group_description = "Communication between all nodes in the cluster"
   environment                = var.environment
 
+  ingress_rules_with_cidr_blocks = [{
+
+    cidr_block  = var.vpc_cidr
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    description = "Allow everything within VPC"
+    }
+  ]
   ingress_rules_with_self = [{
     self        = true
     from_port   = 0
