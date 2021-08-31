@@ -58,7 +58,6 @@ This module creates EKS Control Plane, Managed NodeGroups and Fargate Profiles
 | [aws_eks_cluster.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster) | data source |
 | [aws_iam_policy_document.alb_ingress](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.alb_ingress_assume](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
-| [aws_iam_policy_document.app](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.app_irsa](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.cluster_autoscaler](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.cluster_autoscaler_assume](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
@@ -76,6 +75,7 @@ This module creates EKS Control Plane, Managed NodeGroups and Fargate Profiles
 | <a name="input_addons"></a> [addons](#input\_addons) | List of addons to be managed. Valid values are `coredns`, `kube-proxy` and `vpc-cni`. Only valid if `enable_addons` is set to true | `any` | `[]` | no |
 | <a name="input_alb_ingress_enabled"></a> [alb\_ingress\_enabled](#input\_alb\_ingress\_enabled) | Whether or not to install ALB Load balancer controller | `bool` | `true` | no |
 | <a name="input_app_namespace"></a> [app\_namespace](#input\_app\_namespace) | k8s namespace for application | `string` | n/a | yes |
+| <a name="input_app_role_policy"></a> [app\_role\_policy](#input\_app\_role\_policy) | IAM policy to be attached with app IAM role | `string` | n/a | yes |
 | <a name="input_app_service_account"></a> [app\_service\_account](#input\_app\_service\_account) | k8s service account | `string` | n/a | yes |
 | <a name="input_ca_enabled"></a> [ca\_enabled](#input\_ca\_enabled) | Whether or not to install Cluster Autoscaler | `bool` | `true` | no |
 | <a name="input_cluster_encryption_config"></a> [cluster\_encryption\_config](#input\_cluster\_encryption\_config) | Secrets encryption configuration | `any` | `[]` | no |

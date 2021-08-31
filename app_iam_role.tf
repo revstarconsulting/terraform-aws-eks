@@ -1,23 +1,10 @@
-data "aws_iam_policy_document" "app" {
-  statement {
-    actions = [
-      "s3:*",
-      "cognito-idp:*"
-    ]
-
-    resources = ["*"]
-
-    effect = "Allow"
-  }
-}
-
 
 resource "aws_iam_policy" "app" {
   name        = "${var.cluster_name}-${var.tag_application}-policy"
   path        = "/"
   description = "Policy for application pods"
 
-  policy = data.aws_iam_policy_document.app.json
+  policy = var.app_role_policy
 }
 
 # Role

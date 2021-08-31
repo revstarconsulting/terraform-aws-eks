@@ -226,6 +226,13 @@ variable "app_namespace" {
 variable "app_service_account" {
   description = "k8s service account"
   type        = string
+
+}
+
+variable "app_role_policy" {
+  description = "IAM policy to be attached with app IAM role"
+  type        = string
+
 }
 variable "tag_application" {
   description = "Application tag"
