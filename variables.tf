@@ -218,6 +218,15 @@ variable "cluster_encryption_config" {
   default     = []
 }
 
+variable "app_namespace" {
+  description = "k8s namespace for application"
+  type        = string
+}
+
+variable "app_service_account" {
+  description = "k8s service account"
+  type        = string
+}
 variable "tag_application" {
   description = "Application tag"
   type        = string
