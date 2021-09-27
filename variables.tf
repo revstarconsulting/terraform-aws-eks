@@ -218,6 +218,29 @@ variable "cluster_encryption_config" {
   default     = []
 }
 
+variable "app_namespace" {
+  description = "k8s namespace for application"
+  type        = string
+}
+
+variable "app_service_account" {
+  description = "k8s service account"
+  type        = string
+
+}
+
+variable "app_role_policy" {
+  description = "IAM policy to be attached with app IAM role"
+  type        = string
+
+}
+
+variable "app_logs_enabled" {
+  description = "Whether or not to send app logs to CloudWatch"
+  type        = bool
+  default     = true
+
+}
 variable "tag_application" {
   description = "Application tag"
   type        = string
