@@ -37,11 +37,13 @@ This module creates EKS Control Plane, Managed NodeGroups and Fargate Profiles
 | [aws_iam_policy.app](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_policy.cluster_autoscaler](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_policy.external_dns](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
+| [aws_iam_policy.fluentd](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_role.alb_ingress](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
 | [aws_iam_role.app](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
 | [aws_iam_role.cluster_autoscaler](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
 | [aws_iam_role.control_plane](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
 | [aws_iam_role.external_dns](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
+| [aws_iam_role.fluentd](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
 | [aws_iam_role.node_group](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
 | [aws_iam_role_policy_attachment.alb_ingress](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.app](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
@@ -50,6 +52,7 @@ This module creates EKS Control Plane, Managed NodeGroups and Fargate Profiles
 | [aws_iam_role_policy_attachment.cni_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.ecr_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.external_dns](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
+| [aws_iam_role_policy_attachment.fluentd](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.node_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_kms_alias.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kms_alias) | resource |
 | [aws_kms_key.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kms_key) | resource |
@@ -64,6 +67,8 @@ This module creates EKS Control Plane, Managed NodeGroups and Fargate Profiles
 | [aws_iam_policy_document.control_plane_assume_role](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.external_dns](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.external_dns_irsa](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [aws_iam_policy_document.fluentd](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [aws_iam_policy_document.fluentd_irsa](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.node_group_assume_role](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [tls_certificate.this](https://registry.terraform.io/providers/hashicorp/tls/latest/docs/data-sources/certificate) | data source |
 
@@ -74,6 +79,7 @@ This module creates EKS Control Plane, Managed NodeGroups and Fargate Profiles
 | <a name="input_additional_settings"></a> [additional\_settings](#input\_additional\_settings) | Map of additional settings for helm deployments | `list(map(string))` | `[]` | no |
 | <a name="input_addons"></a> [addons](#input\_addons) | List of addons to be managed. Valid values are `coredns`, `kube-proxy` and `vpc-cni`. Only valid if `enable_addons` is set to true | `any` | `[]` | no |
 | <a name="input_alb_ingress_enabled"></a> [alb\_ingress\_enabled](#input\_alb\_ingress\_enabled) | Whether or not to install ALB Load balancer controller | `bool` | `true` | no |
+| <a name="input_app_logs_enabled"></a> [app\_logs\_enabled](#input\_app\_logs\_enabled) | Whether or not to send app logs to CloudWatch | `bool` | `true` | no |
 | <a name="input_app_namespace"></a> [app\_namespace](#input\_app\_namespace) | k8s namespace for application | `string` | n/a | yes |
 | <a name="input_app_role_policy"></a> [app\_role\_policy](#input\_app\_role\_policy) | IAM policy to be attached with app IAM role | `string` | n/a | yes |
 | <a name="input_app_service_account"></a> [app\_service\_account](#input\_app\_service\_account) | k8s service account | `string` | n/a | yes |

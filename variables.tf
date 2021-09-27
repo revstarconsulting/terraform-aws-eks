@@ -234,6 +234,13 @@ variable "app_role_policy" {
   type        = string
 
 }
+
+variable "app_logs_enabled" {
+  description = "Whether or not to send app logs to CloudWatch"
+  type        = bool
+  default     = true
+
+}
 variable "tag_application" {
   description = "Application tag"
   type        = string
