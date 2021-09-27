@@ -37,3 +37,9 @@ resource "aws_iam_role_policy_attachment" "cni_policy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
   role       = aws_iam_role.node_group.name
 }
+
+resource "aws_iam_role_policy_attachment" "logs_policy" {
+  count      = length(var.custom_node_role_policies) > 0 ? 0 : 1
+  policy_arn = "arn:aws:iam::aws:policy/CloudWatchLogsFullAccess"
+  role       = aws_iam_role.node_group.name
+}
