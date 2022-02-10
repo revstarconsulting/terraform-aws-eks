@@ -15,24 +15,7 @@ data "aws_iam_policy_document" "alb_ingress" {
 
   statement {
     actions = [
-      "ec2:AuthorizeSecurityGroupIngress",
-      "ec2:CreateSecurityGroup",
-      "ec2:CreateTags",
-      "ec2:DeleteTags",
-      "ec2:DeleteSecurityGroup",
-      "ec2:DescribeAccountAttributes",
-      "ec2:DescribeAddresses",
-      "ec2:DescribeInstances",
-      "ec2:DescribeInstanceStatus",
-      "ec2:DescribeInternetGateways",
-      "ec2:DescribeNetworkInterfaces",
-      "ec2:DescribeSecurityGroups",
-      "ec2:DescribeSubnets",
-      "ec2:DescribeTags",
-      "ec2:DescribeVpcs",
-      "ec2:ModifyInstanceAttribute",
-      "ec2:ModifyNetworkInterfaceAttribute",
-      "ec2:RevokeSecurityGroupIngress"
+      "ec2:*"
     ]
     resources = [
       "*",
