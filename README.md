@@ -15,6 +15,7 @@ This module creates EKS Control Plane, Managed NodeGroups and Fargate Profiles
 |------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | 3.55.0 |
 | <a name="provider_helm"></a> [helm](#provider\_helm) | 2.2.0 |
+| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | 2.10.0 |
 | <a name="provider_tls"></a> [tls](#provider\_tls) | 3.1.0 |
 
 ## Modules
@@ -56,6 +57,9 @@ This module creates EKS Control Plane, Managed NodeGroups and Fargate Profiles
 | [aws_kms_key.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kms_key) | resource |
 | [aws_launch_template.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/launch_template) | resource |
 | [helm_release.this](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
+| [kubernetes_config_map.this](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/config_map) | resource |
+| [kubernetes_namespace_v1.this](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/namespace_v1) | resource |
+| [kubernetes_service_account_v1.this](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/service_account_v1) | resource |
 | [aws_eks_cluster.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster) | data source |
 | [aws_iam_policy_document.alb_ingress](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.alb_ingress_assume](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
@@ -94,6 +98,7 @@ This module creates EKS Control Plane, Managed NodeGroups and Fargate Profiles
 | <a name="input_disk_size"></a> [disk\_size](#input\_disk\_size) | Disk size (in GBs) to attach with EKS nodes | `number` | `100` | no |
 | <a name="input_disk_type"></a> [disk\_type](#input\_disk\_type) | EBS volume type | `string` | `"gp3"` | no |
 | <a name="input_enable_addons"></a> [enable\_addons](#input\_enable\_addons) | Whether or not to enable addons | `bool` | `false` | no |
+| <a name="input_enable_custom_configmap"></a> [enable\_custom\_configmap](#input\_enable\_custom\_configmap) | Enable it to configure additional IAM roles in aws-auth configmap | `bool` | `false` | no |
 | <a name="input_enable_encryption"></a> [enable\_encryption](#input\_enable\_encryption) | Set to true if secrets need to be encrypted | `bool` | `true` | no |
 | <a name="input_enable_irsa"></a> [enable\_irsa](#input\_enable\_irsa) | Whether or not to enable IAM role for Service Accounts | `bool` | `false` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | Provide appropriate environment name | `string` | n/a | yes |
@@ -102,6 +107,10 @@ This module creates EKS Control Plane, Managed NodeGroups and Fargate Profiles
 | <a name="input_instance_type"></a> [instance\_type](#input\_instance\_type) | Instance type to be configured in launch template | `string` | `"t3.large"` | no |
 | <a name="input_instance_types"></a> [instance\_types](#input\_instance\_types) | List of instance types outside launch template. | `list(string)` | `[]` | no |
 | <a name="input_launch_template_name"></a> [launch\_template\_name](#input\_launch\_template\_name) | Launch template name | `string` | `"eks-launch-template"` | no |
+| <a name="input_map_accounts"></a> [map\_accounts](#input\_map\_accounts) | Additional AWS account numbers to add to the aws-auth configmap. | `list(string)` | `[]` | no |
+| <a name="input_map_roles"></a> [map\_roles](#input\_map\_roles) | Additional IAM roles to add to the aws-auth configmap. | <pre>list(object({<br>    rolearn  = string<br>    username = string<br>    groups   = list(string)<br>  }))</pre> | `[]` | no |
+| <a name="input_map_users"></a> [map\_users](#input\_map\_users) | Additional IAM users to add to the aws-auth configmap. | <pre>list(object({<br>    userarn  = string<br>    username = string<br>    groups   = list(string)<br>  }))</pre> | `[]` | no |
+| <a name="input_namespaces"></a> [namespaces](#input\_namespaces) | List of namespaces | `list(any)` | `[]` | no |
 | <a name="input_node_group_assume_role_policy"></a> [node\_group\_assume\_role\_policy](#input\_node\_group\_assume\_role\_policy) | Custom assume role policy to be attached with node group IAM role | `string` | `""` | no |
 | <a name="input_node_group_name"></a> [node\_group\_name](#input\_node\_group\_name) | The name of the cluster node group. Defaults to <cluster\_name>-<random value> | `string` | `null` | no |
 | <a name="input_node_group_role_name"></a> [node\_group\_role\_name](#input\_node\_group\_role\_name) | IAM role name for the node groups | `string` | n/a | yes |
@@ -111,6 +120,7 @@ This module creates EKS Control Plane, Managed NodeGroups and Fargate Profiles
 | <a name="input_private_endpoint_enabled"></a> [private\_endpoint\_enabled](#input\_private\_endpoint\_enabled) | Whether or not to enable private endpoint | `bool` | `false` | no |
 | <a name="input_public_access_cidr_blocks"></a> [public\_access\_cidr\_blocks](#input\_public\_access\_cidr\_blocks) | List of CIDR blocks to be whitelisted for public access | `list(string)` | <pre>[<br>  "0.0.0.0/0"<br>]</pre> | no |
 | <a name="input_public_endpoint_enabled"></a> [public\_endpoint\_enabled](#input\_public\_endpoint\_enabled) | Whether or not to enable public endpoint | `bool` | `true` | no |
+| <a name="input_service_accounts"></a> [service\_accounts](#input\_service\_accounts) | List of Service Accounts | `list(any)` | `[]` | no |
 | <a name="input_ssh_key_name"></a> [ssh\_key\_name](#input\_ssh\_key\_name) | SSH Key name to be associated with the instances | `string` | `""` | no |
 | <a name="input_subnet_ids"></a> [subnet\_ids](#input\_subnet\_ids) | A list of subnet IDs to launch resources in | `list(string)` | n/a | yes |
 | <a name="input_tag_application"></a> [tag\_application](#input\_tag\_application) | Application tag | `string` | n/a | yes |

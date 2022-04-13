@@ -241,6 +241,51 @@ variable "app_logs_enabled" {
   default     = true
 
 }
+
+variable "enable_custom_configmap" {
+  description = "Enable it to configure additional IAM roles in aws-auth configmap "
+  type        = bool
+  default     = false
+}
+
+variable "map_accounts" {
+  description = "Additional AWS account numbers to add to the aws-auth configmap."
+  type        = list(string)
+  default     = []
+}
+
+variable "map_roles" {
+  description = "Additional IAM roles to add to the aws-auth configmap."
+  type = list(object({
+    rolearn  = string
+    username = string
+    groups   = list(string)
+  }))
+  default = []
+}
+
+variable "map_users" {
+  description = "Additional IAM users to add to the aws-auth configmap."
+  type = list(object({
+    userarn  = string
+    username = string
+    groups   = list(string)
+  }))
+  default = []
+}
+
+variable "namespaces" {
+  description = "List of namespaces"
+  type        = list(any)
+  default     = []
+}
+
+variable "service_accounts" {
+  description = "List of Service Accounts"
+  type        = list(any)
+  default     = []
+}
+
 variable "tag_application" {
   description = "Application tag"
   type        = string
