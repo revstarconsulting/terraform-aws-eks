@@ -48,5 +48,8 @@ resource "kubernetes_service_account_v1" "this" {
   metadata {
     name      = each.value.name
     namespace = each.value.namespace
+    annotations = {
+      for annotation in each.value.annotations : annotation.label => annotation.value
+    }
   }
 }
