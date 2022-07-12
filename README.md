@@ -7,23 +7,23 @@ This module creates EKS Control Plane, Managed NodeGroups and Fargate Profiles
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | ~> 1.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 3.3.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.0.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 3.55.0 |
-| <a name="provider_helm"></a> [helm](#provider\_helm) | 2.2.0 |
-| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | 2.10.0 |
-| <a name="provider_tls"></a> [tls](#provider\_tls) | 3.1.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.22.0 |
+| <a name="provider_helm"></a> [helm](#provider\_helm) | 2.6.0 |
+| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | 2.12.1 |
+| <a name="provider_tls"></a> [tls](#provider\_tls) | 3.4.0 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_cluster_sg"></a> [cluster\_sg](#module\_cluster\_sg) | github.com/cloudprodigy/terraform-aws-security-group | v1.0.0 |
-| <a name="module_node_sg"></a> [node\_sg](#module\_node\_sg) | github.com/cloudprodigy/terraform-aws-security-group | v1.0.0 |
+| <a name="module_cluster_sg"></a> [cluster\_sg](#module\_cluster\_sg) | github.com/revstarconsulting/terraform-aws-security-group | v1.0.0 |
+| <a name="module_node_sg"></a> [node\_sg](#module\_node\_sg) | github.com/revstarconsulting/terraform-aws-security-group | v1.0.0 |
 
 ## Resources
 

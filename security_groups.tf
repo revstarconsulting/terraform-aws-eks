@@ -1,5 +1,5 @@
 module "cluster_sg" {
-  source = "github.com/cloudprodigy/terraform-aws-security-group?ref=v1.0.0"
+  source = "github.com/revstarconsulting/terraform-aws-security-group?ref=v1.0.0"
 
   count                      = length(var.control_plane_security_groups) > 0 ? 0 : 1
   vpc_id                     = var.vpc_id
@@ -37,7 +37,7 @@ module "cluster_sg" {
 }
 
 module "node_sg" {
-  source = "github.com/cloudprodigy/terraform-aws-security-group?ref=v1.0.0"
+  source = "github.com/revstarconsulting/terraform-aws-security-group?ref=v1.0.0"
 
   count                      = length(var.node_security_groups) > 0 ? 0 : 1
   vpc_id                     = var.vpc_id
