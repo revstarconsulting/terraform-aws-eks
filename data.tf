@@ -33,4 +33,11 @@ data "aws_eks_cluster" "this" {
   ]
 }
 
+data "aws_eks_cluster_auth" "cluster-auth" {
+  name = aws_eks_cluster.this.name
+  depends_on = [
+    aws_eks_cluster.this
+  ]
+}
+
 
